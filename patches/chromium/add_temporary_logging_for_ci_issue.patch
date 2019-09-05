@@ -1,0 +1,22 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Kleinschmidt <kleinschmidtorama@gmail.com>
+Date: Thu, 5 Sep 2019 15:07:47 -0400
+Subject: add temporary logging for ci issue
+
+
+diff --git a/net/dns/host_resolver_proc.cc b/net/dns/host_resolver_proc.cc
+index 0824540a63a37cc84a0dc0923f3b3d6e72fb477b..bcaf42d9f888080005f6e069400a7f80dfc3d841 100644
+--- a/net/dns/host_resolver_proc.cc
++++ b/net/dns/host_resolver_proc.cc
+@@ -238,8 +238,10 @@ int SystemHostResolverCall(const std::string& host,
+     // If the call to getaddrinfo() failed because of a system error, report
+     // it separately from ERR_NAME_NOT_RESOLVED.
+ #if defined(OS_WIN)
+-    if (err != WSAHOST_NOT_FOUND && err != WSANO_DATA)
++    if (err != WSAHOST_NOT_FOUND && err != WSANO_DATA) {
++      LOG(INFO) << "In SystemHostResolverCall err is:" << err;
+       return ERR_NAME_RESOLUTION_FAILED;
++    }
+ #elif defined(OS_POSIX) && !defined(OS_FREEBSD)
+     if (err != EAI_NONAME && err != EAI_NODATA)
+       return ERR_NAME_RESOLUTION_FAILED;
