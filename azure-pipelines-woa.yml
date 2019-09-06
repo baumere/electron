@@ -50,6 +50,15 @@ steps:
     Copy-Item -path src\out\Default\electron.lib -destination src\out\Default\gen\node_headers\Release\node.lib
   displayName: 'Setup node headers'
 
+
+- script: |
+    cd src
+    out\Default\electron.exe electron\spec-main\fixtures\api\dns-failure.js
+  displayName: 'Test DNS failure'
+  env:
+    ELECTRON_ENABLE_LOGGING: true
+    ELECTRON_ENABLE_STACK_DUMPING: true
+
 - script: |
     cd src
     set npm_config_nodedir=%cd%\out\Default\gen\node_headers
