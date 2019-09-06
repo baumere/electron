@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Kleinschmidt <kleinschmidtorama@gmail.com>
+Date: Fri, 6 Sep 2019 09:32:15 -0400
+Subject: add temporary logging for ci issue
+
+
+diff --git a/net/dns/host_resolver_proc.cc b/net/dns/host_resolver_proc.cc
+index 0824540a63a37cc84a0dc0923f3b3d6e72fb477b..d61a82978f6255953ef9d1630c4086d3bd245f27 100644
+--- a/net/dns/host_resolver_proc.cc
++++ b/net/dns/host_resolver_proc.cc
+@@ -229,6 +229,7 @@ int SystemHostResolverCall(const std::string& host,
+   if (err) {
+ #if defined(OS_WIN)
+     err = WSAGetLastError();
++    LOG(INFO) << "HEY WSAGetLastError was:" << err;
+ #endif
+ 
+     // Return the OS error to the caller.
+@@ -238,13 +239,20 @@ int SystemHostResolverCall(const std::string& host,
+     // If the call to getaddrinfo() failed because of a system error, report
+     // it separately from ERR_NAME_NOT_RESOLVED.
+ #if defined(OS_WIN)
+-    if (err != WSAHOST_NOT_FOUND && err != WSANO_DATA)
++    LOG(INFO) << "HEY OS_WIN defined";
++    if (err != WSAHOST_NOT_FOUND && err != WSANO_DATA) {
+       return ERR_NAME_RESOLUTION_FAILED;
++    }
++    LOG(INFO) << "err is WSAHOST_NOT_FOUND or WSANO_DATA";
+ #elif defined(OS_POSIX) && !defined(OS_FREEBSD)
+-    if (err != EAI_NONAME && err != EAI_NODATA)
++    LOG(INFO) << "HEY OS_POSIX defined";
++    if (err != EAI_NONAME && err != EAI_NODATA) {
++       LOG(INFO) << "HEY err != EAI_NONAME && err != EAI_NODATA";
+       return ERR_NAME_RESOLUTION_FAILED;
++    }
++    LOG(INFO) << "HEY err is EAI_NONAME or err is EAI_NODATA";
+ #endif
+-
++     LOG(INFO) << "HEY returning: ERR_NAME_NOT_RESOLVED";
+     return ERR_NAME_NOT_RESOLVED;
+   }
+ 
