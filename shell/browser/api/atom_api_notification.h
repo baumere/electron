@@ -80,6 +80,7 @@ class Notification : public mate::TrackableObject<Notification>,
   bool has_reply_ = false;
   base::string16 reply_placeholder_;
   base::string16 sound_;
+  base::string16 urgency_;
   std::vector<electron::NotificationAction> actions_;
   base::string16 close_button_text_;
 

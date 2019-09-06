@@ -144,6 +144,12 @@ A `Boolean` property representing whether the notification is silent.
 
 A `Boolean` property representing whether the notification has a reply action.
 
+#### `notification.urgency` _Linux_
+
+A `String` property representing the urgency level of the notification. Can be 'normal', 'critical', or 'low'.
+
+Default is 'low' - see [NotifyUrgency](https://developer.gnome.org/libnotify/unstable/NotifyNotification.html#notify-notification-set-urgency) for more information.
+
 #### `notification.actions`
 
 A [`NotificationAction[]`](structures/notification-action.md) property representing the actions of the notification.
