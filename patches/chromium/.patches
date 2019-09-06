@@ -78,4 +78,3 @@ disable_compositor_recycling.patch
 allow_new_privileges_in_unsandboxed_child_processes.patch
 expose_setuseragent_on_networkcontext.patch
 feat_add_set_theme_source_to_allow_apps_to.patch
-add_temporary_logging_for_ci_issue.patch
